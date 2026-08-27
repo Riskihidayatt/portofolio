@@ -1,8 +1,12 @@
-import { motion } from 'motion/react';
-import { Briefcase } from 'lucide-react';
-import { Experience } from '../../../types';
+import { motion } from "motion/react";
+import { Briefcase } from "lucide-react";
+import { Experience } from "../../../types";
 
-export function ExperienceSection({ experiences }: { experiences: Experience[] }) {
+export function ExperienceSection({
+  experiences,
+}: {
+  experiences: Experience[];
+}) {
   return (
     <section className="py-20" id="experience">
       <motion.div
@@ -12,8 +16,12 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
         transition={{ duration: 0.6 }}
       >
         <div className="mb-16">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">01 / Experience</span>
-          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-[var(--foreground)]">Work History</h2>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">
+            01 / Experience
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-[var(--foreground)]">
+            Experience
+          </h2>
         </div>
 
         <div className="space-y-8">
@@ -35,15 +43,24 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
                   <Briefcase className="w-4 h-4 hidden md:block text-blue-500" />
                   {exp.period}
                 </div>
-                
+
                 <div className="md:col-span-3 bg-[var(--card)] p-6 sm:p-8 rounded-xl border border-[var(--border)] hover:border-blue-500/30 transition-colors shadow-sm">
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--foreground)] mb-1">{exp.role}</h3>
-                  <div className="text-blue-500 font-mono text-sm mb-6">{exp.company}</div>
-                  
+                  <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--foreground)] mb-1">
+                    {exp.role}
+                  </h3>
+                  <div className="text-blue-500 font-mono text-sm mb-6">
+                    {exp.company}
+                  </div>
+
                   <ul className="space-y-4">
                     {exp.description.map((desc, i) => (
-                      <li key={i} className="text-[var(--muted-foreground)] font-light text-sm flex gap-4 leading-relaxed">
-                        <span className="text-blue-500 mt-1.5 opacity-50 text-[10px]">?</span>
+                      <li
+                        key={i}
+                        className="text-[var(--muted-foreground)] font-light text-sm flex gap-4 leading-relaxed"
+                      >
+                        <span className="text-blue-500 mt-1.5 opacity-50 text-[10px]">
+                          ?
+                        </span>
                         <span>{desc}</span>
                       </li>
                     ))}
