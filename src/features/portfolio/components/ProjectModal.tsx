@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ExternalLink, ShieldCheck, Cpu } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Project } from '../../../types';
 import { getTechIconUrl } from '../../../lib/techIcons';
 
@@ -9,7 +10,27 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (project) {
+      setCurrentImageIndex(0);
+    }
+  }, [project]);
+
   if (!project) return null;
+
+  const images = project.images && project.images.length > 0 ? project.images : (project.image ? [project.image] : []);
+  
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <AnimatePresence>
@@ -41,31 +62,68 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Content */}
           <div className="overflow-y-auto flex-grow bg-[var(--card)] custom-scrollbar">
-            {project.image && (
-              <div className="w-full h-64 sm:h-80 md:h-96 relative border-b border-[var(--border)]">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover"
-                />
+            {images.length > 0 && (
+              <div className="w-full h-64 sm:h-80 md:h-[450px] relative border-b border-[var(--border)] bg-black/5 flex items-center justify-center group overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.img 
+                    key={currentImageIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    src={images[currentImageIndex]} 
+                    alt={project.title + " - Image " + (currentImageIndex + 1)}
+                    className="w-full h-full object-contain bg-[var(--card)]"
+                  />
+                </AnimatePresence>
+
+                {images.length > 1 && (
+                  <>
+                    <button 
+                      onClick={handlePrev}
+                      className="absolute left-4 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-md"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button 
+                      onClick={handleNext}
+                      className="absolute right-4 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-md"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                    
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {images.map((_, idx) => (
+                        <div 
+                          key={idx} 
+                          className={
+                            "w-2 h-2 rounded-full transition-all " + 
+                            (idx === currentImageIndex ? "bg-blue-500 scale-125" : "bg-black/30 dark:bg-white/50")
+                          } 
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             )}
             
             <div className="p-6 md:p-8 space-y-8">
               {/* Meta Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-                {project.link && (
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-blue-500 hover:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 p-3 rounded-lg border border-blue-500/20 transition-colors group"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span>View Project</span>
-                  </a>
-                )}
-              </div>
+              {project.link && (
+                <div className="flex">
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-blue-500 hover:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 p-3 rounded-lg border border-blue-500/20 transition-colors group"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>View Project</span>
+                    </a>
+                </div>
+              )}
 
               {/* Description */}
               <div className="space-y-4">
