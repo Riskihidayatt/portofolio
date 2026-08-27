@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { Briefcase } from 'lucide-react';
 import { Experience } from '../../../types';
 
 export function ExperienceSection({ experiences }: { experiences: Experience[] }) {
@@ -7,44 +8,48 @@ export function ExperienceSection({ experiences }: { experiences: Experience[] }
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6 }}
       >
         <div className="mb-16">
           <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">01 / Experience</span>
-          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter">Work History</h2>
+          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-[var(--foreground)]">Work History</h2>
         </div>
 
-        <div className="space-y-12 border-l border-white/10 ml-2 pl-8 relative">
+        <div className="space-y-8">
           {experiences.map((exp, index) => (
             <motion.div
-              key={exp.id}
+              key={index}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
+              className="relative pl-8 md:pl-0"
             >
-              {/* Timeline dot */}
-              <div className="absolute -left-[41px] top-1.5 w-5 h-5 rounded-full bg-[#050505] border border-white/20" />
-              
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3">
-                <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-white">{exp.role}</h3>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white/50 border border-white/10 px-3 py-1 rounded-full mt-2 sm:mt-0 w-fit">
+              <div className="md:grid md:grid-cols-4 md:gap-8 items-baseline">
+                {/* Timeline line - mobile only */}
+                <div className="absolute left-0 top-2 bottom-0 w-px bg-[var(--border)] md:hidden"></div>
+                <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-blue-500 md:hidden"></div>
+
+                <div className="md:col-span-1 mb-4 md:mb-0 text-sm font-mono text-[var(--muted-foreground)] pt-1 flex items-center md:items-start gap-2">
+                  <Briefcase className="w-4 h-4 hidden md:block text-blue-500" />
                   {exp.period}
-                </span>
+                </div>
+                
+                <div className="md:col-span-3 bg-[var(--card)] p-6 sm:p-8 rounded-xl border border-[var(--border)] hover:border-blue-500/30 transition-colors shadow-sm">
+                  <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--foreground)] mb-1">{exp.role}</h3>
+                  <div className="text-blue-500 font-mono text-sm mb-6">{exp.company}</div>
+                  
+                  <ul className="space-y-4">
+                    {exp.description.map((desc, i) => (
+                      <li key={i} className="text-[var(--muted-foreground)] font-light text-sm flex gap-4 leading-relaxed">
+                        <span className="text-blue-500 mt-1.5 opacity-50 text-[10px]">?</span>
+                        <span>{desc}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              
-              <h4 className="text-lg font-medium text-white/80 mb-6">{exp.company}</h4>
-              
-              <ul className="space-y-3">
-                {exp.description.map((desc, i) => (
-                  <li key={i} className="text-white/50 font-light text-sm sm:text-base leading-relaxed flex items-start">
-                    <span className="text-blue-500 mr-3 mt-1.5 text-xs opacity-60">▹</span>
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           ))}
         </div>

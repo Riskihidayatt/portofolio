@@ -1,15 +1,26 @@
+import { ArrowUp } from 'lucide-react';
+
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="border-t border-white/10 py-10 mt-20 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex gap-8 text-[10px] uppercase tracking-widest font-mono opacity-50">
-          <span>© {new Date().getFullYear()} Riski Hidayat</span>
-          <span className="hidden sm:inline">Built with React & Supabase</span>
+    <footer className="border-t border-[var(--border)] bg-[var(--card)] py-12">
+      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="text-[10px] uppercase tracking-widest font-mono text-[var(--muted-foreground)]">
+          &copy; {new Date().getFullYear()} Riski. All rights reserved.
         </div>
-        <div className="text-[10px] uppercase tracking-widest font-mono flex items-center gap-2 opacity-70">
-          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-          System operational
-        </div>
+        
+        <button 
+          onClick={scrollToTop}
+          className="group flex items-center gap-3 text-[10px] uppercase tracking-widest font-mono text-[var(--muted-foreground)] hover:text-blue-500 transition-colors"
+        >
+          <span>Back to top</span>
+          <div className="p-2 rounded-full bg-[var(--muted)] border border-[var(--border)] group-hover:border-blue-500/50 transition-colors">
+            <ArrowUp className="w-3 h-3" />
+          </div>
+        </button>
       </div>
     </footer>
   );

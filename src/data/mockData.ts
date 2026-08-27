@@ -3,6 +3,14 @@ import { PortfolioData } from '../types';
 // Profile
 import profilePhoto from './assets/profile/Desain tanpa judul (2).svg';
 
+// Simple Restaurant API images
+import apiresto1 from './assets/apiresto/1.png';
+import apiresto2 from './assets/apiresto/2.png';
+import apiresto3 from './assets/apiresto/3.png';
+import apiresto4 from './assets/apiresto/4.png';
+import apiresto5 from './assets/apiresto/5.png';
+import apiresto6 from './assets/apiresto/6.png';
+
 // E-Voting (PEMIRA) images
 import evoting1 from './assets/evoting/1.png';
 import evoting2 from './assets/evoting/2.png';
@@ -29,6 +37,12 @@ import lastbite5 from './assets/lastbite/5.jpg';
 
 // LearningTech images
 import learningtech1 from './assets/learningtech/1.png';
+
+// Certifications images
+import cert1 from './assets/certification/image.png'; // Neo4j
+import cert2 from './assets/certification/ACA Developer Certification.jpg';
+import cert3 from './assets/certification/bnsp.jpeg';
+import cert4 from './assets/certification/NDG_Linux_Essentials_certificate.jpg';
 
 export const fallbackData: PortfolioData = {
   profile: {
@@ -82,8 +96,23 @@ export const fallbackData: PortfolioData = {
   ],
   projects: [
     {
+      id: 'prj-0',
+      title: 'Simple Restaurant API',
+      tech_stack: ['Spring Boot', 'PostgreSQL', 'Java', 'Swagger'],
+      image: apiresto1,
+      images: [apiresto1, apiresto2, apiresto3, apiresto4, apiresto5, apiresto6],
+      description: [
+        'Simple Restaurant API - a backend system simulating core restaurant operations, including menu management, customer records, and transaction processing.',
+        'Implemented Layered Architecture (Controller-Service-Repository) for clean separation of concerns.',
+        'Applied DTO (Data Transfer Object) pattern with MapStruct for secure and efficient data mapping.',
+        'Built Pagination & Filtering using Spring Data JPA for scalable data handling.',
+        'Designed interactive API documentation via Swagger (OpenAPI) for easier testing and integration.',
+        'Overcame challenge where Swagger initially failed to parse the Pageable parameter correctly by implementing the @ParameterObject annotation, serving as a reminder that debugging often requires understanding a framework\'s internals.'
+      ]
+    },
+    {
       id: 'prj-1',
-      title: 'PEMIRA Polinela – E-Voting System',
+      title: 'PEMIRA Polinela - E-Voting System',
       tech_stack: ['React', 'Node.js', 'Docker', 'PostgreSQL'],
       image: evoting1,
       images: [evoting1, evoting2, evoting3, evoting4, evoting5],
@@ -96,7 +125,7 @@ export const fallbackData: PortfolioData = {
     },
     {
       id: 'prj-2',
-      title: 'AITeC VI – Official Competition Website',
+      title: 'AITeC VI - Official Competition Website',
       tech_stack: ['PHP', 'CodeIgniter 4', 'MySQL'],
       image: aitec1,
       images: [aitec1, aitec2, aitec3, aitec4],
@@ -108,7 +137,7 @@ export const fallbackData: PortfolioData = {
     },
     {
       id: 'prj-3',
-      title: 'LastBite – Food Waste Reduction Platform',
+      title: 'LastBite - Food Waste Reduction Platform',
       tech_stack: ['React Native', 'Spring Boot', 'PostgreSQL', 'Docker'],
       image: lastbite1,
       images: [lastbite1, lastbite2, lastbite3, lastbite4, lastbite5],
@@ -120,7 +149,7 @@ export const fallbackData: PortfolioData = {
     },
     {
       id: 'prj-4',
-      title: 'E-Kuliah – Academic Information System',
+      title: 'E-Kuliah - Academic Information System',
       tech_stack: ['PHP', 'CodeIgniter 4', 'MySQL'],
       image: ekuliah1,
       images: [ekuliah1, ekuliah2],
@@ -132,7 +161,7 @@ export const fallbackData: PortfolioData = {
     },
     {
       id: 'prj-5',
-      title: 'LearningTech – Mobile Learning Application',
+      title: 'LearningTech - Mobile Learning Application',
       tech_stack: ['Java', 'Android', 'Firebase'],
       image: learningtech1,
       images: [learningtech1],
@@ -154,7 +183,7 @@ export const fallbackData: PortfolioData = {
     },
     {
       category: 'Databases',
-      items: ['PostgreSQL', 'MySQL', 'Firebase Firestore']
+      items: ['PostgreSQL', 'MySQL', 'Firebase Firestore', 'Neo4j']
     },
     {
       category: 'Tools',
@@ -179,6 +208,36 @@ export const fallbackData: PortfolioData = {
       id: 'edu-3',
       institution: 'SMKS Maarif Purbolinggo',
       degree: 'Computer and Network Engineering (TKJ)'
+    }
+  ],
+  certifications: [
+    {
+      id: 'cert-1',
+      title: 'Neo4j Certified Professional',
+      issuer: 'Neo4j',
+      year: 'Aug 2024',
+      image: cert1
+    },
+    {
+      id: 'cert-2',
+      title: 'ACA Developer Certification',
+      issuer: 'Alibaba Cloud Academy',
+      year: '2025',
+      image: cert2
+    },
+    {
+      id: 'cert-3',
+      title: 'Junior Web Programmer',
+      issuer: 'BNSP',
+      year: '2025',
+      image: cert3
+    },
+    {
+      id: 'cert-4',
+      title: 'NDG Linux Essentials',
+      issuer: 'Cisco Networking Academy',
+      year: '2023',
+      image: cert4
     }
   ]
 };

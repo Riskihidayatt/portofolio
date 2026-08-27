@@ -41,10 +41,19 @@ export interface Education {
   gpa?: string;
 }
 
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  year: string;
+  image?: string;
+}
+
 export interface PortfolioData {
   profile: Profile;
   experiences: Experience[];
   projects: Project[];
   skills: SkillGroup[];
   education: Education[];
+  certifications: Certification[];
 }

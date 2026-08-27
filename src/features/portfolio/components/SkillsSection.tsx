@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { SkillGroup } from '../../../types';
 import { getTechIconUrl } from '../../../lib/techIcons';
+import { SkillGroup } from '../../../types';
 
 export function SkillsSection({ skills }: { skills: SkillGroup[] }) {
   return (
@@ -8,61 +8,44 @@ export function SkillsSection({ skills }: { skills: SkillGroup[] }) {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6 }}
       >
         <div className="mb-16">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">03 / Capabilities</span>
-          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter">Technical Skills</h2>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">03 / Expertise</span>
+          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-[var(--foreground)]">Technical Skills</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {skills.map((group, groupIndex) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {skills.map((group, index) => (
             <motion.div
               key={group.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
-              className="bg-[#0a0a0a] border border-white/10 p-8 hover:border-blue-500/30 transition-colors duration-300"
+              viewport={{ once: false, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-[var(--card)] p-8 rounded-xl border border-[var(--border)] hover:border-blue-500/30 transition-colors shadow-sm"
             >
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-6 pb-4 border-b border-white/10">
+              <h3 className="text-lg font-mono text-[var(--foreground)] uppercase tracking-widest mb-6 pb-4 border-b border-[var(--border)]">
                 {group.category}
               </h3>
-
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                {group.items.map((skill, skillIndex) => {
+              <div className="flex flex-wrap gap-3">
+                {group.items.map((skill) => {
                   const iconUrl = getTechIconUrl(skill);
                   return (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: groupIndex * 0.1 + skillIndex * 0.05 }}
-                      whileHover={{ scale: 1.08, y: -2 }}
-                      className="group flex flex-col items-center gap-2.5 p-3 rounded-none bg-white/[0.03] border border-white/[0.06] hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-300 cursor-default"
+                    <div 
+                      key={skill} 
+                      className="group/skill flex items-center gap-2 px-4 py-2.5 bg-[var(--muted)] border border-[var(--border)] rounded-md hover:border-blue-500/50 hover:bg-blue-500/5 transition-all cursor-default"
                     >
-                      {iconUrl ? (
-                        <div className="relative w-10 h-10 flex items-center justify-center">
-                          <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <img
-                            src={iconUrl}
-                            alt={skill}
-                            className="w-9 h-9 object-contain relative z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.8)]"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 group-hover:border-blue-500/50 transition-colors">
-                          <span className="text-[10px] font-mono font-bold text-white/50 group-hover:text-blue-400 transition-colors uppercase">
-                            {skill.slice(0, 3)}
-                          </span>
-                        </div>
+                      {iconUrl && (
+                        <img 
+                          src={iconUrl} 
+                          alt={skill} 
+                          className="w-4 h-4 opacity-50 grayscale group-hover/skill:opacity-100 group-hover/skill:grayscale-0 transition-all duration-300" 
+                        />
                       )}
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-white/40 group-hover:text-blue-400 transition-colors duration-300 text-center leading-tight">
-                        {skill}
-                      </span>
-                    </motion.div>
+                      <span className="text-sm font-medium text-[var(--muted-foreground)] group-hover/skill:text-[var(--foreground)] transition-colors">{skill}</span>
+                    </div>
                   );
                 })}
               </div>
@@ -73,4 +56,3 @@ export function SkillsSection({ skills }: { skills: SkillGroup[] }) {
     </section>
   );
 }
-
