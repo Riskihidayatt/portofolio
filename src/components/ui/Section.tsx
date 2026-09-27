@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef, useSyncExternalStore } from 'react';
+import { motion, useInView } from 'motion/react';
 import { cn } from '../../lib/utils';
 
 interface SectionProps {
@@ -33,13 +33,55 @@ interface RevealProps {
   delay?: number;
 }
 
+type ScrollDirection = 'down' | 'up';
+
+// Shared scroll-direction store so every Reveal knows which edge content enters from.
+let scrollDirection: ScrollDirection = 'down';
+const listeners = new Set<() => void>();
+let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+
+function handleScroll() {
+  const y = window.scrollY;
+  if (Math.abs(y - lastScrollY) < 4) return;
+  const next: ScrollDirection = y > lastScrollY ? 'down' : 'up';
+  lastScrollY = y;
+  if (next !== scrollDirection) {
+    scrollDirection = next;
+    listeners.forEach((listener) => listener());
+  }
+}
+
+function subscribe(listener: () => void) {
+  if (listeners.size === 0) window.addEventListener('scroll', handleScroll, { passive: true });
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+    if (listeners.size === 0) window.removeEventListener('scroll', handleScroll);
+  };
+}
+
+function useScrollDirection() {
+  return useSyncExternalStore(subscribe, () => scrollDirection, () => 'down' as ScrollDirection);
+}
+
+const OFFSET = 32;
+
+/**
+ * Fades content in whenever it enters the viewport: from below while scrolling down,
+ * from above while scrolling up. It fades out again once it leaves.
+ */
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: '-60px 0px -60px 0px' });
+  const direction = useScrollDirection();
+  const hiddenY = direction === 'down' ? OFFSET : -OFFSET;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      ref={ref}
+      initial={{ opacity: 0, y: OFFSET }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: hiddenY }}
+      transition={inView ? { duration: 0.5, delay, ease: 'easeOut' } : { duration: 0.2 }}
       className={className}
     >
       {children}
