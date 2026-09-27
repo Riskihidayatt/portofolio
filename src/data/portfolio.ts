@@ -43,6 +43,7 @@ import certNeo4j from './assets/certification/image.png';
 import certAca from './assets/certification/ACA Developer Certification.jpg';
 import certBnsp from './assets/certification/bnsp.jpeg';
 import certLinux from './assets/certification/NDG_Linux_Essentials_certificate.jpg';
+import certEnigma from './assets/certification/enigma-camp-bootcamp.jpg';
 
 export const portfolioData: PortfolioData = {
   profile: {
@@ -257,7 +258,7 @@ export const portfolioData: PortfolioData = {
   ],
   certifications: [
     { id: 'cert-neo4j', title: 'Neo4j Certified Professional', issuer: 'Neo4j', year: '2026', image: certNeo4j },
-    { id: 'cert-enigma', title: 'Fullstack Developer Bootcamp', issuer: 'Enigma Camp', year: '2025' },
+    { id: 'cert-enigma', title: 'Fullstack Developer Bootcamp', issuer: 'Enigma Camp IT Bootcamp', year: '2025', image: certEnigma },
     { id: 'cert-bnsp', title: 'Junior Web Programmer', issuer: 'BNSP', year: '2025', image: certBnsp },
     { id: 'cert-aca', title: 'ACA Developer Certification', issuer: 'Alibaba Cloud Academy', year: '2025', image: certAca },
     { id: 'cert-linux', title: 'NDG Linux Essentials', issuer: 'Cisco Networking Academy', year: '2023', image: certLinux },
