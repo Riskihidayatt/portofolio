@@ -6,8 +6,7 @@
     <title>Riski Hidayat — Fullstack Developer</title>
     <meta name="description" content="Riski Hidayat — backend-focused Fullstack Developer building web apps with Go, Java Spring Boot, Node.js and React. Based in Lampung, Indonesia, open to relocation." />
     <meta name="author" content="Riski Hidayat" />
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#09090b" />
     <link rel="canonical" href="https://portofolio.rtech.studio/" />
 
     <meta property="og:type" content="website" />
@@ -23,13 +22,11 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300..800&display=swap" rel="stylesheet">
 
     <script>
-      // Apply the saved (or system) theme before first paint to avoid a flash.
+      // Apply the saved theme (dark by default) before first paint to avoid a flash.
       (function () {
         var theme;
         try { theme = localStorage.getItem('vite-ui-theme'); } catch (e) {}
-        if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        if (theme !== 'light' && theme !== 'dark') theme = 'dark';
         document.documentElement.classList.add(theme);
       })();
     </script>

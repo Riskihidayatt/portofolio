@@ -21,7 +21,7 @@ function getInitialTheme(storageKey: string): Theme {
   } catch {
     // Storage can be unavailable (private mode, blocked cookies).
   }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'dark';
 }
 
 export function ThemeProvider({ children, storageKey = 'vite-ui-theme' }: ThemeProviderProps) {
