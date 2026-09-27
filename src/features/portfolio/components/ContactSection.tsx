@@ -28,7 +28,7 @@ export function ContactSection({ profile }: { profile: Profile }) {
             Let's build something <span className="text-gradient">reliable</span> together.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
-            I'm open to full-time Software Developer roles — backend, fullstack or frontend — remote or on-site, and happy to relocate.
+            I'm open to full-time Fullstack or Backend Developer roles — remote or on-site, and happy to relocate.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -1,6 +1,6 @@
 # Riski Hidayat — Portfolio
 
-Personal portfolio of Riski Hidayat, Software Developer (Golang · React · Java Spring Boot · REST API).
+Personal portfolio of Riski Hidayat, Fullstack Developer (Golang · React · Java Spring Boot · REST API).
 Live: https://portofolio.rtech.studio
 
 Built with React 19, TypeScript, Tailwind CSS v4 and Motion.
