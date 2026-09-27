@@ -1,20 +1,22 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Riski Hidayat — Portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio of Riski Hidayat, Software Developer (Golang · React · Java Spring Boot · REST API).
+Live: https://portofolio.rtech.studio
 
-This contains everything you need to run your app locally.
+Built with React 19, TypeScript, Tailwind CSS v4 and Motion.
 
-View your app in AI Studio: https://ai.studio/apps/a6125f63-7019-4bce-a825-a1d371dd29ab
+## Run locally
 
-## Run Locally
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run lint     # type-check
+npm run build    # production build in dist/
+```
 
-**Prerequisites:**  Node.js
+## Updating content
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+All content lives in `src/data/portfolio.ts` (profile, stats, experience, projects, skills, education,
+certifications, organization). Project screenshots go in `src/data/assets/<project>/`.
+The downloadable CV is served from `public/Riski-Hidayat_Software-Developer_CV.pdf` — replace that file
+when the CV changes.

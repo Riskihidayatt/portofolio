@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ExternalLink, ShieldCheck, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Project } from '../../../types';
-import { getTechIconUrl } from '../../../lib/techIcons';
+import { Modal } from '../../../components/ui/Modal';
+import { TechChip } from '../../../components/ui/TechChip';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -13,156 +14,119 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    if (project) {
-      setCurrentImageIndex(0);
-    }
+    setCurrentImageIndex(0);
   }, [project]);
 
-  if (!project) return null;
+  const images = project?.images?.length ? project.images : project?.image ? [project.image] : [];
 
-  const images = project.images && project.images.length > 0 ? project.images : (project.image ? [project.image] : []);
-  
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
+  const showNext = useCallback(() => setCurrentImageIndex((prev) => (prev + 1) % images.length), [images.length]);
+  const showPrev = useCallback(
+    () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length),
+    [images.length],
+  );
 
-  const handlePrev = (e: React.MouseEvent) => {
+  useEffect(() => {
+    if (!project || images.length < 2) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [project, images.length, showNext, showPrev]);
+
+  const stop = (fn: () => void) => (e: React.MouseEvent) => {
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    fn();
   };
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        />
-        
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-4xl max-h-[90vh] bg-[var(--background)] border border-[var(--border)] rounded-xl overflow-hidden flex flex-col shadow-2xl z-10"
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-[var(--border)] bg-[var(--background)] z-10">
-            <h2 className="text-2xl font-bold uppercase tracking-tight text-[var(--foreground)]">{project.title}</h2>
-            <button
-              onClick={onClose}
-              className="p-2 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] rounded-full transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+    <Modal open={project !== null} title={project?.title ?? ''} onClose={onClose} className="max-w-4xl">
+      {project && (
+        <>
+          {images.length > 0 && (
+            <div className="group relative flex h-64 items-center justify-center overflow-hidden border-b border-border bg-muted sm:h-80 md:h-[440px]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImageIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  src={images[currentImageIndex]}
+                  alt={project.title + ' — image ' + (currentImageIndex + 1) + ' of ' + images.length}
+                  className="h-full w-full object-contain"
+                />
+              </AnimatePresence>
 
-          {/* Content */}
-          <div className="overflow-y-auto flex-grow bg-[var(--card)] custom-scrollbar">
-            {images.length > 0 && (
-              <div className="w-full h-64 sm:h-80 md:h-[450px] relative border-b border-[var(--border)] bg-black/5 flex items-center justify-center group overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.img 
-                    key={currentImageIndex}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    src={images[currentImageIndex]} 
-                    alt={project.title + " - Image " + (currentImageIndex + 1)}
-                    className="w-full h-full object-contain bg-[var(--card)]"
-                  />
-                </AnimatePresence>
-
-                {images.length > 1 && (
-                  <>
-                    <button 
-                      onClick={handlePrev}
-                      className="absolute left-4 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-md"
-                    >
-                      <ChevronLeft className="w-6 h-6" />
-                    </button>
-                    <button 
-                      onClick={handleNext}
-                      className="absolute right-4 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 backdrop-blur-md"
-                    >
-                      <ChevronRight className="w-6 h-6" />
-                    </button>
-                    
-                    {/* Dots indicator */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {images.map((_, idx) => (
-                        <div 
-                          key={idx} 
-                          className={
-                            "w-2 h-2 rounded-full transition-all " + 
-                            (idx === currentImageIndex ? "bg-blue-500 scale-125" : "bg-black/30 dark:bg-white/50")
-                          } 
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-            
-            <div className="p-6 md:p-8 space-y-8">
-              {/* Meta Info */}
-              {project.link && (
-                <div className="flex">
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-blue-500 hover:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 p-3 rounded-lg border border-blue-500/20 transition-colors group"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      <span>View Project</span>
-                    </a>
-                </div>
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={stop(showPrev)}
+                    aria-label="Previous image"
+                    className="absolute left-3 rounded-full bg-black/50 p-2 text-white backdrop-blur transition-opacity hover:bg-black/70 sm:opacity-0 sm:group-hover:opacity-100"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={stop(showNext)}
+                    aria-label="Next image"
+                    className="absolute right-3 rounded-full bg-black/50 p-2 text-white backdrop-blur transition-opacity hover:bg-black/70 sm:opacity-0 sm:group-hover:opacity-100"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                  <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/40 px-2 py-1.5 backdrop-blur">
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={stop(() => setCurrentImageIndex(idx))}
+                        aria-label={'Show image ' + (idx + 1)}
+                        className={
+                          'h-1.5 rounded-full transition-all ' + (idx === currentImageIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/50')
+                        }
+                      />
+                    ))}
+                  </div>
+                </>
               )}
-
-              {/* Description */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-mono tracking-widest text-blue-500 uppercase flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4" /> About the project
-                </h3>
-                <div className="space-y-4 text-[var(--muted-foreground)] leading-relaxed">
-                  {project.description.map((desc, i) => (
-                    <p key={i}>{desc}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tech Stack */}
-              <div className="space-y-4 pt-6 border-t border-[var(--border)]">
-                <h3 className="text-sm font-mono tracking-widest text-blue-500 uppercase flex items-center gap-2">
-                  <Cpu className="w-4 h-4" /> Technologies Used
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {project.tech_stack.map((tech) => {
-                    const iconUrl = getTechIconUrl(tech);
-                    return (
-                      <div 
-                        key={tech} 
-                        className="flex items-center gap-2 px-3 py-2 bg-[var(--muted)] border border-[var(--border)] rounded-md text-sm text-[var(--foreground)]"
-                      >
-                        {iconUrl && (
-                          <img src={iconUrl} alt={tech} className="w-4 h-4" />
-                        )}
-                        <span>{tech}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
             </div>
+          )}
+
+          <div className="space-y-6 p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono text-xs uppercase tracking-wider text-primary">{project.category}</span>
+              <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">{project.role}</span>
+            </div>
+
+            <ul className="space-y-3">
+              {project.description.map((desc, i) => (
+                <li key={i} className="flex gap-3 leading-relaxed text-muted-foreground">
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+                  <span>{desc}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-wrap gap-2 border-t border-border pt-6">
+              {project.tech_stack.map((tech) => (
+                <TechChip key={tech} name={tech} className="px-3 py-1.5 text-sm" />
+              ))}
+            </div>
+
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Visit live site
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
           </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+        </>
+      )}
+    </Modal>
   );
 }

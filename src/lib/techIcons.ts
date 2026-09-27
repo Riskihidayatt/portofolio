@@ -26,6 +26,7 @@ export const getTechIconUrl = (tech: string): string | null => {
   if (t === 'vue' || t === 'vue.js' || t === 'vuejs') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg';
   if (t === 'angular') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg';
   if (t === 'flutter') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg';
+  if (t === 'redux') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg';
   if (t === 'express' || t === 'express.js') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg';
 
   // Mobile
@@ -36,6 +37,7 @@ export const getTechIconUrl = (tech: string): string | null => {
   if (t.includes('mysql')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg';
   if (t.includes('firebase')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg';
   if (t === 'mongodb') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg';
+  if (t === 'prisma') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg';
   if (t === 'redis') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg';
   if (t === 'sqlite') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg';
 

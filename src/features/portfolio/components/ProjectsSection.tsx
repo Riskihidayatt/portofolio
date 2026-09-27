@@ -1,106 +1,89 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Image } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, ImageIcon } from 'lucide-react';
 import { Project } from '../../../types';
 import { ProjectModal } from './ProjectModal';
-import { getTechIconUrl } from '../../../lib/techIcons';
+import { Section, Reveal } from '../../../components/ui/Section';
+import { TechChip } from '../../../components/ui/TechChip';
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section className="py-20" id="projects">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="mb-16">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold mb-4 block">02 / Projects</span>
-          <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter text-[var(--foreground)]">Featured Work</h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              onClick={() => setSelectedProject(project)}
-              className="group bg-[var(--card)] border border-[var(--border)] rounded-xl hover:border-blue-500/50 hover:shadow-lg transition-all duration-300 flex flex-col h-full overflow-hidden cursor-pointer"
-            >
-              {project.image ? (
-                <div className="relative h-56 w-full overflow-hidden border-b border-[var(--border)]">
-                  <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+    <Section
+      id="projects"
+      eyebrow="Projects"
+      title="Selected work"
+      description="Real systems used by students, universities and competition participants — plus a few builds that sharpened my craft."
+    >
+      <div className="grid gap-6 md:grid-cols-2">
+        {projects.map((project, index) => (
+          <Reveal key={project.id} delay={(index % 2) * 0.08} className="h-full">
+            <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
+              <button
+                type="button"
+                onClick={() => setSelectedProject(project)}
+                className="relative block aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted text-left"
+                aria-label={'Open details for ' + project.title}
+              >
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title + ' screenshot'}
+                    loading="lazy"
+                    className={
+                      'h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ' +
+                      (project.imageFit === 'contain' ? 'object-contain py-4' : 'object-cover object-top')
+                    }
                   />
-                </div>
-              ) : (
-                <div className="relative h-56 w-full overflow-hidden border-b border-[var(--border)] bg-[var(--muted)] flex items-center justify-center">
-                    <Image className="w-12 h-12 text-[var(--muted-foreground)] opacity-20" />
-                </div>
-              )}
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-[var(--foreground)] group-hover:text-blue-500 transition-colors">
-                    {project.title}
-                  </h3>
-                  {project.link && (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] ml-4 flex-shrink-0 z-20 transition-colors bg-[var(--muted)] p-2 rounded-full"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-                
-                <div className="space-y-3 mb-8 flex-grow">
-                  {project.description.map((desc, i) => (
-                    <p key={i} className="text-[var(--muted-foreground)] font-light text-sm leading-relaxed line-clamp-3">
-                      {desc}
-                    </p>
+                ) : (
+                  <span className="grid h-full w-full place-items-center">
+                    <ImageIcon className="h-10 w-10 text-muted-foreground/40" />
+                  </span>
+                )}
+                <span className="absolute top-3 left-3 rounded-full bg-background/85 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur">
+                  {project.role}
+                </span>
+              </button>
+
+              <div className="flex flex-1 flex-col p-6">
+                <p className="font-mono text-xs uppercase tracking-wider text-primary">{project.category}</p>
+                <h3 className="mt-2 text-xl font-semibold text-foreground">{project.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{project.summary}</p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.tech_stack.map((tech) => (
+                    <TechChip key={tech} name={tech} />
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-[var(--border)]">
-                  {project.tech_stack.map((tech) => {
-                    const iconUrl = getTechIconUrl(tech);
-                    return (
-                      <div 
-                        key={tech} 
-                        className="group/tech relative flex items-center justify-center w-8 h-8 rounded-md bg-[var(--muted)] border border-[var(--border)]"
-                        title={tech}
-                      >
-                        {iconUrl ? (
-                          <img src={iconUrl} alt={tech} className="w-4 h-4 opacity-50 grayscale group-hover/tech:grayscale-0 group-hover/tech:opacity-100 transition-all duration-300" />
-                        ) : (
-                          <span className="text-[9px] font-mono text-[var(--muted-foreground)]">{tech.slice(0, 3)}</span>
-                        )}
-                      </div>
-                    );
-                  })}
+                <div className="mt-6 flex items-center gap-4 border-t border-border pt-5 text-sm font-medium">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(project)}
+                    className="inline-flex items-center gap-1 text-foreground transition-colors hover:text-primary"
+                  >
+                    Case study
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      Live site
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  )}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
 
-      <ProjectModal 
-        project={selectedProject} 
-        onClose={() => setSelectedProject(null)} 
-      />
-    </section>
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+    </Section>
   );
 }
