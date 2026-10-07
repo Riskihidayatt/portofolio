@@ -32,7 +32,7 @@ export default function App() {
             <AboutSection profile={data.profile} stats={data.stats} focus={data.focus} />
             <ExperienceSection experiences={data.experiences} />
             <ProjectsSection projects={data.projects} />
-            <SkillsSection skills={data.skills} />
+            <SkillsSection skills={data.skills} techStack={data.techStack} />
             <CredentialsSection
               education={data.education}
               certifications={data.certifications}

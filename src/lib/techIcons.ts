@@ -15,6 +15,12 @@ export const getTechIconUrl = (tech: string): string | null => {
   if (t === 'dart') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg';
   if (t === 'rust') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg';
 
+  // Markup & Styling
+  if (t === 'html' || t === 'html5') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg';
+  if (t === 'css' || t === 'css3') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg';
+  if (t === 'tailwind' || t === 'tailwind css' || t === 'tailwindcss') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg';
+  if (t === 'bootstrap') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg';
+
   // Frameworks & Libraries (React must come before Java check)
   if (t === 'react native' || t === 'react-native') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg';
   if (t === 'react' || t === 'react.js' || t === 'reactjs') return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg';
@@ -57,3 +63,8 @@ export const getTechIconUrl = (tech: string): string | null => {
 
   return null;
 };
+
+// Icons drawn in near-black that disappear on a dark background.
+const DARK_ICONS = new Set(['prisma', 'express', 'express.js', 'next.js', 'nextjs', 'github']);
+
+export const isDarkTechIcon = (tech: string): boolean => DARK_ICONS.has(tech.toLowerCase().trim());

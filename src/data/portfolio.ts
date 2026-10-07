@@ -233,6 +233,11 @@ export const portfolioData: PortfolioData = {
       ],
     },
   ],
+  techStack: [
+    'Go', 'Java', 'JavaScript', 'TypeScript', 'PHP', 'Spring Boot', 'Node.js', 'Laravel', 'CodeIgniter 4', 'React',
+    'Redux', 'Android', 'HTML', 'CSS', 'Tailwind CSS', 'Bootstrap', 'PostgreSQL', 'MySQL', 'Firebase', 'Prisma',
+    'Swagger', 'Git', 'GitHub', 'Docker', 'Linux', 'Postman', 'Vite',
+  ],
   skills: [
     { category: 'Languages', items: ['Go', 'Java', 'JavaScript', 'TypeScript', 'PHP', 'SQL'] },
     { category: 'Backend', items: ['Spring Boot', 'JPA', 'Node.js', 'Laravel', 'CodeIgniter 4', 'REST API', 'JWT'] },
