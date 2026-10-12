@@ -1,7 +1,7 @@
 # AGENT MEMORY — Riski Hidayat Portfolio
 
 > File ini WAJIB dibaca AI agent di awal sesi kerja, dan WAJIB diupdate di akhir sesi setelah fitur selesai+ditest.
-> Terakhir diupdate: 2026-10-12 oleh sesi: migrasi Vite → Next.js; periode trainee Enigma Camp disamakan dengan sertifikat (Mar–Jul 2025)
+> Terakhir diupdate: 2026-10-12 oleh sesi: alur deploy dua branch (dev → Preview, master → Production)
 
 ## 1. Ringkasan Project
 - Deskripsi singkat: website portofolio satu halaman milik Riski Hidayat (Fullstack Developer, backend-focused). Live di https://portofolio.rtech.studio.
@@ -28,7 +28,10 @@
 - Warna pakai token Tailwind (`bg-background`, `text-primary`, `border-border`, dst.), bukan hex langsung.
 - Konten baru → `src/data/portfolio.ts`, tipe di `src/types/index.ts`.
 - Teks UI berbahasa Inggris; komunikasi dengan user berbahasa Indonesia.
-- Branch: user minta push langsung ke `master` (tidak ada branch `main`), tanpa branch lain.
+- Branch & deploy (Vercel, auto-deploy dari GitHub):
+  - `dev` → Vercel **Preview**. SEMUA perubahan di-push ke `dev` dulu, lalu kirim link preview ke user.
+  - `master` → Vercel **Production** (situs live). Gabungkan `dev` ke `master` HANYA setelah user bilang oke.
+  - Jangan push langsung ke `master`; jangan buat branch lain tanpa diminta. Tidak ada branch `main`.
 
 ## 4. Status Fitur
 | Fitur | Status | Catatan |
@@ -49,7 +52,8 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
 ## 7. Hal yang perlu diketahui agent berikutnya sebelum lanjut
-- Ada lebih dari satu sesi Claude yang push ke `master`. Selalu `git fetch origin master` dan gabungkan sebelum push.
+- Ada lebih dari satu sesi Claude yang push ke repo ini. Selalu `git fetch origin` dan gabungkan `origin/dev` sebelum push.
+- Link preview branch `dev`: lihat status Vercel di commit GitHub (`gh api repos/Riskihidayatt/portofolio/commits/<sha>/status`) — jangan polling berulang-ulang (pernah kena GitHub secondary rate limit).
 - Cara test: `npm run lint && npm run build && npm run test:e2e`. Di sandbox Claude Code tanpa download browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium`.
 - Screenshot full-page akan terlihat "kosong" di bawah hero setelah scroll balik ke atas — itu disengaja (konten di luar layar disembunyikan agar bisa beranimasi lagi). Ambil screenshot per viewport untuk cek visual.
 - Tidak ada env var / secret yang dibutuhkan.
