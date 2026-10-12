@@ -128,7 +128,7 @@ export const portfolioData: PortfolioData = {
       role: 'Fullstack Developer Trainee',
       employmentType: 'Bootcamp',
       location: 'Kota Malang',
-      period: 'Mar 2025 – Nov 2025',
+      period: 'Mar 2025 – Jul 2025',
       description: [
         'Built REST APIs with Java Spring Boot and JPA applying OOP principles, designed PostgreSQL schemas, and wrote unit tests to meet a minimum 80% code coverage requirement.',
         'Built web interfaces with React.js and Redux and mobile apps with React Native; containerised services with Docker on Linux.',

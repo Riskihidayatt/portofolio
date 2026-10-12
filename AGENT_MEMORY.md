@@ -1,7 +1,7 @@
 # AGENT MEMORY — Riski Hidayat Portfolio
 
 > File ini WAJIB dibaca AI agent di awal sesi kerja, dan WAJIB diupdate di akhir sesi setelah fitur selesai+ditest.
-> Terakhir diupdate: 2026-10-12 oleh sesi: migrasi Vite → Next.js untuk performa
+> Terakhir diupdate: 2026-10-12 oleh sesi: migrasi Vite → Next.js; periode trainee Enigma Camp disamakan dengan sertifikat (Mar–Jul 2025)
 
 ## 1. Ringkasan Project
 - Deskripsi singkat: website portofolio satu halaman milik Riski Hidayat (Fullstack Developer, backend-focused). Live di https://portofolio.rtech.studio.
@@ -45,7 +45,6 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak ada pekerjaan menggantung.
 
 ## 6. Known issues / hutang teknis
-- Periode Enigma Camp di data = "Mar 2025 – Nov 2025", sedangkan sertifikat menyebut 03 Mar – 15 Jul 2025. Menunggu konfirmasi user. — prioritas: rendah
 - Nama file CV masih `Riski-Hidayat_Software-Developer_CV.pdf` (isi CV versi "Software Developer"). — prioritas: rendah
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
