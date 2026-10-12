@@ -114,3 +114,27 @@ test('mobile menu navigates to a section', async ({ page, isMobile }) => {
   await expect(page.getByRole('button', { name: 'Open menu' })).toBeVisible();
   await expect(page.locator('#projects h2')).toBeInViewport();
 });
+
+test('tech stack marquee shows every technology with a self-hosted icon that loads', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#skills').scrollIntoViewIfNeeded();
+  // Each row renders its list twice for the seamless loop; the copies are aria-hidden with empty alt text.
+  const icons = page.locator('#skills ul li:not([aria-hidden]) img[alt]:not([alt=""])');
+  await expect(icons).toHaveCount(27);
+  for (const img of await icons.all()) {
+    await expect(img).toHaveAttribute('src', /^\/icons\/tech\/[a-z0-9]+\.svg$/);
+  }
+  // The icons never stop moving, so load them directly instead of waiting for a stable element.
+  const broken = await icons.evaluateAll(async (imgs) =>
+    (
+      await Promise.all(
+        (imgs as HTMLImageElement[]).map(async (el) => {
+          el.loading = 'eager';
+          await el.decode().catch(() => undefined);
+          return el.naturalWidth > 0 ? null : el.alt;
+        }),
+      )
+    ).filter(Boolean),
+  );
+  expect(broken).toEqual([]);
+});

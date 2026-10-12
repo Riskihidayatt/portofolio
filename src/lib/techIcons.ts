@@ -8,6 +8,14 @@ const ICONS: Record<string, string> = {
   go: 'go',
   golang: 'go',
   java: 'java',
+  html: 'html5',
+  html5: 'html5',
+  css: 'css3',
+  css3: 'css3',
+  tailwind: 'tailwindcss',
+  'tailwind css': 'tailwindcss',
+  tailwindcss: 'tailwindcss',
+  bootstrap: 'bootstrap',
   react: 'react',
   'react.js': 'react',
   reactjs: 'react',
@@ -26,10 +34,12 @@ const ICONS: Record<string, string> = {
   prisma: 'prisma',
   docker: 'docker',
   git: 'git',
+  github: 'github',
   linux: 'linux',
   postman: 'postman',
   swagger: 'swagger',
   openapi: 'swagger',
+  vite: 'vitejs',
 };
 
 export const getTechIconUrl = (tech: string): string | null => {
@@ -41,3 +51,8 @@ export const getTechIconUrl = (tech: string): string | null => {
   if (!slug && t.includes('mysql')) slug = 'mysql';
   return slug ? `/icons/tech/${slug}.svg` : null;
 };
+
+// Icons drawn in near-black that disappear on a dark background.
+const DARK_ICONS = new Set(['linux', 'prisma', 'express', 'express.js', 'next.js', 'nextjs', 'github']);
+
+export const isDarkTechIcon = (tech: string): boolean => DARK_ICONS.has(tech.toLowerCase().trim());

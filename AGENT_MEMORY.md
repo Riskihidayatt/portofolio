@@ -24,7 +24,7 @@
 - Tema: default gelap. Script inline di `<head>` (`src/lib/theme.ts`) memasang class sebelum paint; key localStorage `vite-ui-theme` dipertahankan agar preferensi pengunjung lama tetap terbaca.
 
 ## 3. Konvensi yang harus diikuti
-- Icon library FE: `lucide-react` — jangan pakai emoji di UI. Logo teknologi: tambah SVG ke `public/icons/tech/` + mapping di `src/lib/techIcons.ts`.
+- Icon library FE: `lucide-react` — jangan pakai emoji di UI. Logo teknologi: tambah SVG ke `public/icons/tech/` + mapping di `src/lib/techIcons.ts`; ikon yang gelap tambahkan ke `DARK_ICONS` agar di-invert di dark mode.
 - Warna pakai token Tailwind (`bg-background`, `text-primary`, `border-border`, dst.), bukan hex langsung.
 - Konten baru → `src/data/portfolio.ts`, tipe di `src/types/index.ts`.
 - Teks UI berbahasa Inggris; komunikasi dengan user berbahasa Indonesia.
@@ -36,7 +36,8 @@
 | Redesign UI + konten sesuai CV | Done | Judul "Fullstack Developer" (backend-focused) |
 | Dark mode default + toggle | Done, tested (e2e) | |
 | Scroll reveal dua arah | Done, tested (e2e) | Masuk dari bawah saat scroll turun, dari atas saat scroll naik |
-| Migrasi ke Next.js static export | Done, tested | 17 e2e pass (desktop + mobile), tsc bersih |
+| Migrasi ke Next.js static export | Done, tested | 19 e2e pass (desktop + mobile), tsc bersih |
+| Marquee tech stack di Skills | Done, tested (e2e) | Dibuat di sesi lain (commit b86fa73), di-port ke Next.js; daftar di `techStack` pada portfolio.ts, semua item wajib punya ikon lokal |
 
 Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → Next.js FCP ~760 ms / LCP ~860 ms. Total transfer setelah scroll penuh 3,2 MB → ~0,44 MB.
 
@@ -49,6 +50,7 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
 ## 7. Hal yang perlu diketahui agent berikutnya sebelum lanjut
+- Ada lebih dari satu sesi Claude yang push ke `master`. Selalu `git fetch origin master` dan gabungkan sebelum push.
 - Cara test: `npm run lint && npm run build && npm run test:e2e`. Di sandbox Claude Code tanpa download browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium`.
 - Screenshot full-page akan terlihat "kosong" di bawah hero setelah scroll balik ke atas — itu disengaja (konten di luar layar disembunyikan agar bisa beranimasi lagi). Ambil screenshot per viewport untuk cek visual.
 - Tidak ada env var / secret yang dibutuhkan.

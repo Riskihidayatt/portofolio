@@ -88,6 +88,7 @@ export interface PortfolioData {
   focus: Focus[];
   experiences: Experience[];
   projects: Project[];
+  techStack: string[];
   skills: SkillGroup[];
   education: Education[];
   certifications: Certification[];

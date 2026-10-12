@@ -1,10 +1,14 @@
 import { SkillGroup } from '../../../types';
 import { Section, Reveal } from '../../../components/ui/Section';
 import { getTechIconUrl } from '../../../lib/techIcons';
+import { TechMarquee } from './TechMarquee';
 
-export function SkillsSection({ skills }: { skills: SkillGroup[] }) {
+export function SkillsSection({ skills, techStack }: { skills: SkillGroup[]; techStack: string[] }) {
   return (
     <Section id="skills" eyebrow="Skills" title="Tools I work with">
+      <Reveal>
+        <TechMarquee items={techStack} />
+      </Reveal>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((group, index) => (
           <Reveal
