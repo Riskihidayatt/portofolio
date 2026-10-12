@@ -1,7 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, FileText } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useTheme } from '../ThemeProvider';
+import { Menu, X, FileText } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { cn } from '../../lib/utils';
 
 const navLinks = [
@@ -17,7 +18,6 @@ export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [active, setActive] = useState('');
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -42,18 +42,6 @@ export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
-
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-
-  const themeButton = (
-    <button
-      onClick={toggleTheme}
-      className="rounded-full border border-border bg-card p-2 text-foreground transition-colors hover:border-primary/50 hover:text-primary"
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-    >
-      {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </button>
-  );
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
@@ -90,7 +78,7 @@ export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          {themeButton}
+          <ThemeToggle />
           {resumeUrl && (
             <a
               href={resumeUrl}
@@ -113,40 +101,34 @@ export function Navbar({ resumeUrl }: { resumeUrl?: string }) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-            className="mx-auto mt-2 flex max-w-6xl flex-col rounded-2xl border border-border bg-background/95 p-2 shadow-lg backdrop-blur-xl md:hidden"
-            aria-label="Mobile"
-          >
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {link.name}
-              </a>
-            ))}
-            {resumeUrl && (
-              <a
-                href={resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3 text-sm font-medium text-background"
-              >
-                <FileText className="h-4 w-4" />
-                Download Resume
-              </a>
-            )}
-          </motion.nav>
-        )}
-      </AnimatePresence>
+      {isMobileMenuOpen && (
+        <nav
+          className="animate-pop-in mx-auto mt-2 flex max-w-6xl flex-col rounded-2xl border border-border bg-background/95 p-2 shadow-lg backdrop-blur-xl md:hidden"
+          aria-label="Mobile"
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              {link.name}
+            </a>
+          ))}
+          {resumeUrl && (
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-3 text-sm font-medium text-background"
+            >
+              <FileText className="h-4 w-4" />
+              Download Resume
+            </a>
+          )}
+        </nav>
+      )}
     </header>
   );
 }

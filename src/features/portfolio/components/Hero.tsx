@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import Image from 'next/image';
 import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Profile } from '../../../types';
 
@@ -8,15 +8,12 @@ const floatingTags = [
   { label: 'React + TS', className: '-left-6 bottom-16' },
 ];
 
+// Server-rendered; entrance animations are CSS so the hero is visible before any JavaScript runs.
 export function Hero({ profile }: { profile: Profile }) {
   return (
     <section className="relative flex min-h-[92vh] items-center pt-28 pb-16" aria-label="Introduction">
       <div className="grid w-full items-center gap-14 md:grid-cols-[1.4fr_1fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
+        <div className="animate-fade-up">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
@@ -74,40 +71,32 @@ export function Hero({ profile }: { profile: Profile }) {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {profile.photo && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-            className="relative mx-auto w-full max-w-xs sm:max-w-sm"
-          >
+          <div className="animate-rise relative mx-auto w-full max-w-xs sm:max-w-sm">
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-primary/30 via-accent/20 to-transparent blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card p-2 shadow-xl">
-              <img
+              <Image
                 src={profile.photo}
                 alt={'Portrait of ' + profile.name}
-                width={800}
-                height={800}
+                priority
                 className="aspect-square w-full rounded-[1.6rem] object-cover"
               />
             </div>
             {floatingTags.map((tag, i) => (
-              <motion.span
+              <span
                 key={tag.label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + i * 0.12 }}
+                style={{ animationDelay: `${500 + i * 120}ms` }}
                 className={
-                  'absolute hidden rounded-full border border-border bg-card/90 px-3 py-1.5 font-mono text-xs font-medium text-foreground shadow-md backdrop-blur sm:block ' +
+                  'animate-fade-up absolute hidden rounded-full border border-border bg-card/90 px-3 py-1.5 font-mono text-xs font-medium text-foreground shadow-md backdrop-blur sm:block ' +
                   tag.className
                 }
               >
                 {tag.label}
-              </motion.span>
+              </span>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

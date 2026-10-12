@@ -1,3 +1,5 @@
+import type { StaticImageData } from 'next/image';
+
 export interface Profile {
   name: string;
   role: string;
@@ -6,7 +8,7 @@ export interface Profile {
   availability: string;
   email: string;
   summary: string;
-  photo?: string;
+  photo?: StaticImageData;
   github?: string;
   linkedin?: string;
   resumeUrl?: string;
@@ -44,8 +46,10 @@ export interface Project {
   tech_stack: string[];
   description: string[];
   link?: string;
-  image?: string;
-  images?: string[];
+  /** Small cover shown on the project card. */
+  image?: StaticImageData;
+  /** Full-size gallery shown in the case-study modal. */
+  images?: StaticImageData[];
   /** Use 'contain' for portrait (mobile) screenshots so they aren't cropped. */
   imageFit?: 'cover' | 'contain';
 }
@@ -68,7 +72,7 @@ export interface Certification {
   title: string;
   issuer: string;
   year: string;
-  image?: string;
+  image?: StaticImageData;
 }
 
 export interface Organization {

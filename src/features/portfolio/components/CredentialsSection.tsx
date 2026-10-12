@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+import Image from 'next/image';
 import { Award, GraduationCap, Users, ArrowUpRight } from 'lucide-react';
 import { Certification, Education, Organization } from '../../../types';
 import { Section, Reveal } from '../../../components/ui/Section';
@@ -98,10 +101,10 @@ export function CredentialsSection({ education, certifications, organizations }:
       <Modal open={selectedCert !== null} title={selectedCert?.title ?? ''} onClose={() => setSelectedCert(null)} className="max-w-3xl">
         {selectedCert?.image && (
           <div className="flex justify-center bg-muted p-4 sm:p-6">
-            <img
+            <Image
               src={selectedCert.image}
               alt={selectedCert.title + ' certificate'}
-              className="max-h-[70vh] max-w-full rounded-lg border border-border object-contain"
+              className="h-auto max-h-[70vh] w-auto max-w-full rounded-lg border border-border object-contain"
             />
           </div>
         )}

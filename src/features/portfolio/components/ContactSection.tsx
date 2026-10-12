@@ -1,21 +1,9 @@
-import { useState } from 'react';
-import { Check, Copy, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { Profile } from '../../../types';
 import { Reveal } from '../../../components/ui/Section';
+import { CopyEmailButton } from '../../../components/ui/CopyEmailButton';
 
 export function ContactSection({ profile }: { profile: Profile }) {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      window.location.href = 'mailto:' + profile.email;
-    }
-  };
-
   return (
     <section id="contact" className="py-20 sm:py-24">
       <Reveal className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-14 text-center sm:px-12 sm:py-20">
@@ -39,14 +27,7 @@ export function ContactSection({ profile }: { profile: Profile }) {
               <Mail className="h-4 w-4" />
               Say hello
             </a>
-            <button
-              type="button"
-              onClick={copyEmail}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-3 font-mono text-sm text-foreground transition-colors hover:border-primary/50"
-            >
-              {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
-              {copied ? 'Copied!' : profile.email}
-            </button>
+            <CopyEmailButton email={profile.email} />
           </div>
 
           <div className="mt-8 flex justify-center gap-3">

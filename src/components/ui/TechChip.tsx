@@ -10,7 +10,10 @@ export function TechChip({ name, className }: { name: string; className?: string
         className,
       )}
     >
-      {iconUrl && <img src={iconUrl} alt="" aria-hidden="true" loading="lazy" className="h-3.5 w-3.5" />}
+      {iconUrl && (
+        // eslint-disable-next-line @next/next/no-img-element -- tiny local SVG, nothing to optimise
+        <img src={iconUrl} alt="" aria-hidden="true" loading="lazy" width={14} height={14} className="h-3.5 w-3.5" />
+      )}
       {name}
     </span>
   );

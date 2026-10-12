@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+import Image from 'next/image';
 import { ArrowUpRight, ExternalLink, ImageIcon } from 'lucide-react';
 import { Project } from '../../../types';
 import { ProjectModal } from './ProjectModal';
@@ -26,10 +29,9 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
                 aria-label={'Open details for ' + project.title}
               >
                 {project.image ? (
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title + ' screenshot'}
-                    loading="lazy"
                     className={
                       'h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ' +
                       (project.imageFit === 'contain' ? 'object-contain py-4' : 'object-cover object-top')

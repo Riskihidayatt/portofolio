@@ -4,46 +4,52 @@ import { PortfolioData } from '../types';
 import profilePhoto from './assets/profile/riski-hidayat.webp';
 
 // PEMIRA e-voting images
-import evoting1 from './assets/evoting/1.png';
-import evoting2 from './assets/evoting/2.png';
-import evoting3 from './assets/evoting/3.png';
-import evoting4 from './assets/evoting/4.png';
-import evoting5 from './assets/evoting/image.png';
+import evotingThumb from './assets/evoting/1-thumb.webp';
+import evoting1 from './assets/evoting/1.webp';
+import evoting2 from './assets/evoting/2.webp';
+import evoting3 from './assets/evoting/3.webp';
+import evoting4 from './assets/evoting/4.webp';
+import evoting5 from './assets/evoting/5.webp';
 
 // AITeC VI images
-import aitec1 from './assets/aitec/1.png';
-import aitec2 from './assets/aitec/2.png';
-import aitec3 from './assets/aitec/3.png';
-import aitec4 from './assets/aitec/4.png';
+import aitecThumb from './assets/aitec/1-thumb.webp';
+import aitec1 from './assets/aitec/1.webp';
+import aitec2 from './assets/aitec/2.webp';
+import aitec3 from './assets/aitec/3.webp';
+import aitec4 from './assets/aitec/4.webp';
 
 // E-Kuliah images
-import ekuliah1 from './assets/ekuliah/1.png';
-import ekuliah2 from './assets/ekuliah/2.png';
+import ekuliahThumb from './assets/ekuliah/1-thumb.webp';
+import ekuliah1 from './assets/ekuliah/1.webp';
+import ekuliah2 from './assets/ekuliah/2.webp';
 
 // LastBite images
-import lastbite1 from './assets/lastbite/1.jpg';
-import lastbite2 from './assets/lastbite/2.jpg';
-import lastbite3 from './assets/lastbite/3.jpg';
-import lastbite4 from './assets/lastbite/4.jpg';
-import lastbite5 from './assets/lastbite/5.jpg';
+import lastbiteThumb from './assets/lastbite/1-thumb.webp';
+import lastbite1 from './assets/lastbite/1.webp';
+import lastbite2 from './assets/lastbite/2.webp';
+import lastbite3 from './assets/lastbite/3.webp';
+import lastbite4 from './assets/lastbite/4.webp';
+import lastbite5 from './assets/lastbite/5.webp';
 
 // LearningTech images
-import learningtech1 from './assets/learningtech/1.png';
+import learningtechThumb from './assets/learningtech/1-thumb.webp';
+import learningtech1 from './assets/learningtech/1.webp';
 
 // Simple Restaurant API images
-import apiresto1 from './assets/apiresto/1.png';
-import apiresto2 from './assets/apiresto/2.png';
-import apiresto3 from './assets/apiresto/3.png';
-import apiresto4 from './assets/apiresto/4.png';
-import apiresto5 from './assets/apiresto/5.png';
-import apiresto6 from './assets/apiresto/6.png';
+import apirestoThumb from './assets/apiresto/1-thumb.webp';
+import apiresto1 from './assets/apiresto/1.webp';
+import apiresto2 from './assets/apiresto/2.webp';
+import apiresto3 from './assets/apiresto/3.webp';
+import apiresto4 from './assets/apiresto/4.webp';
+import apiresto5 from './assets/apiresto/5.webp';
+import apiresto6 from './assets/apiresto/6.webp';
 
 // Certification images
-import certNeo4j from './assets/certification/image.png';
-import certAca from './assets/certification/ACA Developer Certification.jpg';
-import certBnsp from './assets/certification/bnsp.jpeg';
-import certLinux from './assets/certification/NDG_Linux_Essentials_certificate.jpg';
-import certEnigma from './assets/certification/enigma-camp-bootcamp.jpg';
+import certNeo4j from './assets/certification/neo4j-certified-professional.webp';
+import certAca from './assets/certification/aca-developer-certification.webp';
+import certBnsp from './assets/certification/bnsp.webp';
+import certLinux from './assets/certification/ndg-linux-essentials-certificate.webp';
+import certEnigma from './assets/certification/enigma-camp-bootcamp.webp';
 
 export const portfolioData: PortfolioData = {
   profile: {
@@ -150,7 +156,7 @@ export const portfolioData: PortfolioData = {
       role: 'Team Lead',
       summary: 'Campus-wide e-voting platform with auditable vote records, JWT auth and an admin dashboard.',
       tech_stack: ['Node.js', 'React', 'PostgreSQL', 'Docker'],
-      image: evoting1,
+      image: evotingThumb,
       images: [evoting1, evoting2, evoting3, evoting4, evoting5],
       description: [
         'Led a team of three through technical discussions and architecture decisions, designing a separated frontend and backend with JWT authentication and Cloudinary integration.',
@@ -166,7 +172,7 @@ export const portfolioData: PortfolioData = {
       summary: 'Official registration platform used by around 20 polytechnics across Indonesia and Timor-Leste.',
       tech_stack: ['PHP', 'CodeIgniter 4', 'MySQL'],
       link: 'https://aitec-lampung.polinela.ac.id/',
-      image: aitec1,
+      image: aitecThumb,
       images: [aitec1, aitec2, aitec3, aitec4],
       description: [
         'Built the official registration platform for a national inter-polytechnic competition in a three-person team; live and used by around 20 polytechnics across Indonesia and Timor-Leste.',
@@ -181,7 +187,7 @@ export const portfolioData: PortfolioData = {
       summary: 'Academic system used by every student at Politeknik Negeri Lampung.',
       tech_stack: ['PHP', 'CodeIgniter 4', 'MySQL'],
       link: 'https://kuliah.polinela.ac.id/',
-      image: ekuliah1,
+      image: ekuliahThumb,
       images: [ekuliah1, ekuliah2],
       description: [
         'Built CRUD modules for core master data (students, lecturers, technicians, academic years, staff, classes, departments) in an existing codebase used by all students at Politeknik Negeri Lampung.',
@@ -195,7 +201,7 @@ export const portfolioData: PortfolioData = {
       role: 'Mobile Developer',
       summary: 'Mobile marketplace for surplus food, with Midtrans payments and a Spring Boot backend.',
       tech_stack: ['React Native', 'Spring Boot', 'PostgreSQL'],
-      image: lastbite1,
+      image: lastbiteThumb,
       images: [lastbite1, lastbite2, lastbite3, lastbite4, lastbite5],
       imageFit: 'contain',
       description: [
@@ -210,7 +216,7 @@ export const portfolioData: PortfolioData = {
       role: 'Solo Developer',
       summary: 'Native Android app with video and article modules on Firebase.',
       tech_stack: ['Java', 'Android', 'Firebase'],
-      image: learningtech1,
+      image: learningtechThumb,
       images: [learningtech1],
       description: [
         'Independently built a native Android app with video and article modules.',
@@ -224,7 +230,7 @@ export const portfolioData: PortfolioData = {
       role: 'Solo Developer',
       summary: 'Layered Spring Boot API for menus, customers and transactions, documented with Swagger.',
       tech_stack: ['Java', 'Spring Boot', 'PostgreSQL', 'Swagger'],
-      image: apiresto1,
+      image: apirestoThumb,
       images: [apiresto1, apiresto2, apiresto3, apiresto4, apiresto5, apiresto6],
       description: [
         'Backend simulating core restaurant operations: menu management, customer records and transaction processing.',

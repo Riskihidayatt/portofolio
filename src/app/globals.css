@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+}
+
+@layer base {
+  :root {
+    --background: #fafafa;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --border: #e4e4e7;
+    --muted: #f4f4f5;
+    --muted-foreground: #52525b;
+    --primary: #2563eb;
+    --primary-foreground: #ffffff;
+    --accent: #7c3aed;
+    --grid: rgb(10 10 10 / 0.05);
+    color-scheme: light;
+  }
+
+  .dark {
+    --background: #09090b;
+    --foreground: #fafafa;
+    --card: #111113;
+    --border: #27272a;
+    --muted: #18181b;
+    --muted-foreground: #a1a1aa;
+    --primary: #60a5fa;
+    --primary-foreground: #09090b;
+    --accent: #a78bfa;
+    --grid: rgb(250 250 250 / 0.04);
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(120deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Scroll reveal (see components/ui/Reveal.tsx): content slides in from the edge it enters through. */
+[data-reveal] {
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+[data-reveal='below'] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition-duration: 0.2s;
+}
+[data-reveal='above'] {
+  opacity: 0;
+  transform: translateY(-32px);
+  transition-duration: 0.2s;
+}
+
+/* Entrance animations that run before JavaScript loads (hero, modals, menus). */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Transform-only entrance: the element is painted immediately, so it can count as LCP right away. */
+@keyframes rise {
+  from {
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out both;
+  }
+  .animate-rise {
+    animation: rise 0.7s ease-out both;
+  }
+  .animate-pop-in {
+    animation: pop-in 0.2s ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal],
+  .animate-fade-up,
+  .animate-rise,
+  .animate-pop-in {
+    transform: none !important;
+    animation-name: fade-in;
+  }
+}

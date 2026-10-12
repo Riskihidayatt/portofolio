@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import Image from 'next/image';
 import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Project } from '../../../types';
 import { Modal } from '../../../components/ui/Modal';
@@ -46,18 +48,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <>
           {images.length > 0 && (
             <div className="group relative flex h-64 items-center justify-center overflow-hidden border-b border-border bg-muted sm:h-80 md:h-[440px]">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentImageIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  src={images[currentImageIndex]}
-                  alt={project.title + ' — image ' + (currentImageIndex + 1) + ' of ' + images.length}
-                  className="h-full w-full object-contain"
-                />
-              </AnimatePresence>
+              <Image
+                key={currentImageIndex}
+                src={images[currentImageIndex]}
+                alt={project.title + ' — image ' + (currentImageIndex + 1) + ' of ' + images.length}
+                className="animate-fade-in h-full w-full object-contain"
+              />
 
               {images.length > 1 && (
                 <>
