@@ -48,7 +48,7 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak ada pekerjaan menggantung.
 
 ## 6. Known issues / hutang teknis
-- Nama file CV masih `Riski-Hidayat_Software-Developer_CV.pdf` (isi CV versi "Software Developer"). — prioritas: rendah
+- CV yang bisa diunduh = `public/Riski-Hidayat_Full-Stack-Developer_CV.pdf` (versi "Full Stack Developer", 2026-10-13). Di CV itu periode Enigma Camp tertulis Mar–Nov 2025, sedangkan di web Mar–Jul 2025 (atas permintaan user, sesuai sertifikat). Menunggu keputusan user. — prioritas: rendah
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
 ## 7. Hal yang perlu diketahui agent berikutnya sebelum lanjut

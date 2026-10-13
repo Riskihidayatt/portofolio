@@ -62,7 +62,7 @@ export const portfolioData: PortfolioData = {
     photo: profilePhoto,
     github: 'https://github.com/Riskihidayatt',
     linkedin: 'https://www.linkedin.com/in/riski-hidayat-794254244/',
-    resumeUrl: '/Riski-Hidayat_Software-Developer_CV.pdf',
+    resumeUrl: '/Riski-Hidayat_Full-Stack-Developer_CV.pdf',
     summary:
       'Fullstack Developer with 2+ years of experience designing, developing, testing and maintaining web applications, with a strong backend focus. I build RESTful APIs with Golang, Java Spring Boot, Node.js and PHP, and frontends with React and TypeScript (Zustand, Redux) on PostgreSQL, MySQL and Firebase Firestore. I enjoy translating business requirements into technical solutions, work comfortably in cross-functional Agile/Scrum teams, and use AI tools such as Claude Code and Cursor to write tests and debug faster.',
   },

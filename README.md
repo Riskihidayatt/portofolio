@@ -27,5 +27,5 @@ On Vercel, use the **Next.js** framework preset.
 All content lives in `src/data/portfolio.ts` (profile, stats, experience, projects, skills, education,
 certifications, organization). Project screenshots go in `src/data/assets/<project>/` as WebP (longest
 side ≤ 1600px); each project card uses a smaller `1-thumb.webp` (≤ 800px).
-The downloadable CV is served from `public/Riski-Hidayat_Software-Developer_CV.pdf` — replace that file
+The downloadable CV is served from `public/Riski-Hidayat_Full-Stack-Developer_CV.pdf` — replace that file
 when the CV changes.

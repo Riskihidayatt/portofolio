@@ -101,7 +101,7 @@ test('layout has no horizontal overflow and the resume is downloadable', async (
   await page.goto('/');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
-  const cv = await request.get('/Riski-Hidayat_Software-Developer_CV.pdf');
+  const cv = await request.get('/Riski-Hidayat_Full-Stack-Developer_CV.pdf');
   expect(cv.ok()).toBeTruthy();
   expect(cv.headers()['content-type']).toContain('pdf');
 });
