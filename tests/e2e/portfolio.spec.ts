@@ -138,3 +138,17 @@ test('tech stack marquee shows every technology with a self-hosted icon that loa
   );
   expect(broken).toEqual([]);
 });
+
+test('print layout has six A4 pages with nothing clipped, and the generated PDFs are served', async ({ page, request }) => {
+  await page.goto('/portfolio-pdf');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  const pages = page.locator('.pdf-page');
+  await expect(pages).toHaveCount(6);
+  const overflow = await pages.evaluateAll((els) => els.map((el) => el.scrollHeight - el.clientHeight));
+  expect(overflow.every((px) => px <= 1)).toBe(true);
+  for (const file of ['Riski-Hidayat_Portfolio.pdf', 'Riski-Hidayat_Portfolio-Light.pdf']) {
+    const res = await request.get('/' + file);
+    expect(res.ok(), file).toBeTruthy();
+    expect(res.headers()['content-type']).toContain('pdf');
+  }
+});

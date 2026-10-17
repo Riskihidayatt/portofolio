@@ -1,7 +1,7 @@
 # AGENT MEMORY — Riski Hidayat Portfolio
 
 > File ini WAJIB dibaca AI agent di awal sesi kerja, dan WAJIB diupdate di akhir sesi setelah fitur selesai+ditest.
-> Terakhir diupdate: 2026-10-12 oleh sesi: alur deploy dua branch (dev → Preview, master → Production)
+> Terakhir diupdate: 2026-10-17 oleh sesi: portfolio versi PDF (/portfolio-pdf + npm run pdf)
 
 ## 1. Ringkasan Project
 - Deskripsi singkat: website portofolio satu halaman milik Riski Hidayat (Fullstack Developer, backend-focused). Live di https://portofolio.rtech.studio.
@@ -18,6 +18,7 @@
 - Static export ke `dist/` (`distDir: 'dist'`) — alasan: situs statis, bisa di-host di mana saja tanpa Node server, perintah build & folder output sama seperti versi Vite sebelumnya.
 - Section statis = Server Component; `'use client'` hanya untuk yang interaktif (Navbar, ThemeToggle, Reveal, Modal, ProjectsSection, CredentialsSection, CopyEmailButton) — alasan: JS di browser sekecil mungkin, konten sudah ada di HTML.
 - Tidak memakai library animasi (`motion` sudah dihapus). Animasi = CSS (`[data-reveal]`, `.animate-*` di globals.css) + IntersectionObserver di `Reveal.tsx` — alasan: bundle lebih kecil, hero tampil sebelum JS jalan.
+- PDF: halaman `/portfolio-pdf` pakai font Plus Jakarta Sans STATIS (bukan variable) agar ter-embed TrueType, warna aksen solid (bukan `.text-gradient`, meninggalkan garis di PDF), semua gambar `loading="eager"`; script mengecilkan gambar ke ~2,5x ukuran tampil (kalau tidak, PDF ~12 MB).
 - Foto hero memakai animasi transform-only (`animate-rise`), BUKAN fade dari opacity 0 — alasan: foto adalah elemen LCP; opacity 0 menunda LCP.
 - Gambar dioptimasi manual ke WebP (tidak ada image optimizer di static export; `images.unoptimized: true`). Kartu proyek pakai `*-thumb.webp` (≤800px), modal pakai versi ≤1600px.
 - Font self-hosted via `@fontsource` (bukan Google Fonts CDN / next/font) — build tidak butuh akses internet.
@@ -40,6 +41,7 @@
 | Dark mode default + toggle | Done, tested (e2e) | |
 | Scroll reveal dua arah | Done, tested (e2e) | Masuk dari bawah saat scroll turun, dari atas saat scroll naik |
 | Migrasi ke Next.js static export | Done, tested | 19 e2e pass (desktop + mobile), tsc bersih |
+| Portfolio PDF (A4, 6 halaman, dark + light) | Done, tested (e2e + cek visual) | Halaman `/portfolio-pdf` (noindex) → `npm run pdf` → `public/Riski-Hidayat_Portfolio*.pdf` (~1,4 MB). WAJIB generate ulang + commit PDF tiap konten di portfolio.ts berubah. Belum ada tombol download di web (tunggu keputusan user). |
 | Marquee tech stack di Skills | Done, tested (e2e) | Dibuat di sesi lain (commit b86fa73), di-port ke Next.js; daftar di `techStack` pada portfolio.ts, semua item wajib punya ikon lokal |
 
 Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → Next.js FCP ~760 ms / LCP ~860 ms. Total transfer setelah scroll penuh 3,2 MB → ~0,44 MB.
