@@ -146,6 +146,8 @@ test('print layout has six A4 pages with nothing clipped, and the generated PDFs
   await expect(pages).toHaveCount(6);
   const overflow = await pages.evaluateAll((els) => els.map((el) => el.scrollHeight - el.clientHeight));
   expect(overflow.every((px) => px <= 1)).toBe(true);
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Portfolio PDF' })).toHaveAttribute('href', '/Riski-Hidayat_Portfolio.pdf');
   for (const file of ['Riski-Hidayat_Portfolio.pdf', 'Riski-Hidayat_Portfolio-Light.pdf']) {
     const res = await request.get('/' + file);
     expect(res.ok(), file).toBeTruthy();

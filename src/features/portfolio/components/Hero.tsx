@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, Download, FileText, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Profile } from '../../../types';
 
 const floatingTags = [
@@ -45,6 +45,17 @@ export function Hero({ profile }: { profile: Profile }) {
               >
                 <Download className="h-4 w-4" />
                 Download CV
+              </a>
+            )}
+            {profile.portfolioPdfUrl && (
+              <a
+                href={profile.portfolioPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/50"
+              >
+                <FileText className="h-4 w-4" />
+                Portfolio PDF
               </a>
             )}
           </div>

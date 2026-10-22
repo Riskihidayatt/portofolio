@@ -41,7 +41,7 @@
 | Dark mode default + toggle | Done, tested (e2e) | |
 | Scroll reveal dua arah | Done, tested (e2e) | Masuk dari bawah saat scroll turun, dari atas saat scroll naik |
 | Migrasi ke Next.js static export | Done, tested | 19 e2e pass (desktop + mobile), tsc bersih |
-| Portfolio PDF (A4, 6 halaman, dark + light) | Done, tested (e2e + cek visual) | Halaman `/portfolio-pdf` (noindex) → `npm run pdf` → `public/Riski-Hidayat_Portfolio*.pdf` (~1,4 MB). WAJIB generate ulang + commit PDF tiap konten di portfolio.ts berubah. Belum ada tombol download di web (tunggu keputusan user). |
+| Portfolio PDF (A4, 6 halaman, dark + light) | Done, tested (e2e + cek visual) | Halaman `/portfolio-pdf` (noindex) → `npm run pdf` → `public/Riski-Hidayat_Portfolio*.pdf` (~1,4 MB). WAJIB generate ulang + commit PDF tiap konten di portfolio.ts berubah. Tombol "Portfolio PDF" di Hero (sebelah Download CV) membuka versi gelap. |
 | Marquee tech stack di Skills | Done, tested (e2e) | Dibuat di sesi lain (commit b86fa73), di-port ke Next.js; daftar di `techStack` pada portfolio.ts, semua item wajib punya ikon lokal |
 
 Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → Next.js FCP ~760 ms / LCP ~860 ms. Total transfer setelah scroll penuh 3,2 MB → ~0,44 MB.
