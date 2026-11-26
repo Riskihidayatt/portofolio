@@ -42,7 +42,13 @@ const PROJECTS_PER_PAGE = 3;
 const projectPages = Array.from({ length: Math.ceil(data.projects.length / PROJECTS_PER_PAGE) }, (_, i) =>
   data.projects.slice(i * PROJECTS_PER_PAGE, (i + 1) * PROJECTS_PER_PAGE),
 );
-const TOTAL_PAGES = 4 + projectPages.length;
+// Experience entries are laid out two per page (long entries do not fit three to an A4 page).
+const EXPERIENCES_PER_PAGE = 2;
+const experiencePages = Array.from({ length: Math.ceil(data.experiences.length / EXPERIENCES_PER_PAGE) }, (_, i) =>
+  data.experiences.slice(i * EXPERIENCES_PER_PAGE, (i + 1) * EXPERIENCES_PER_PAGE),
+);
+const FIRST_PROJECT_PAGE = 2 + experiencePages.length;
+const TOTAL_PAGES = 1 + experiencePages.length + projectPages.length + 2;
 
 function PdfPage({ number, children, className }: { number: number; children: React.ReactNode; className?: string }) {
   return (
@@ -180,58 +186,63 @@ export default function PortfolioPdfPage() {
         </div>
       </PdfPage>
 
-      {/* 2 — Experience */}
-      <PdfPage number={2}>
-        <Heading eyebrow="Experience" title="Where I've worked" />
-        <ol className="relative space-y-3 border-l border-border pl-5">
-          {data.experiences.map((exp) => (
-            <li key={exp.id} className="pdf-avoid relative">
-              <span
-                className={cn(
-                  'absolute top-4 -left-[25px] h-2.5 w-2.5 rounded-full border-2 border-background',
-                  exp.current ? 'bg-primary' : 'bg-muted-foreground/50',
-                )}
-                aria-hidden="true"
-              />
-              <Card>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-[12.5px] font-semibold">{exp.role}</h3>
-                    <p className="text-[10.5px] font-medium text-primary">{exp.company}</p>
+      {/* Experience */}
+      {experiencePages.map((experiences, pageIndex) => (
+        <PdfPage key={pageIndex} number={2 + pageIndex}>
+          <Heading
+            eyebrow={pageIndex === 0 ? 'Experience' : 'Experience (continued)'}
+            title={pageIndex === 0 ? "Where I've worked" : 'Earlier experience'}
+          />
+          <ol className="relative space-y-3 border-l border-border pl-5">
+            {experiences.map((exp) => (
+              <li key={exp.id} className="pdf-avoid relative">
+                <span
+                  className={cn(
+                    'absolute top-4 -left-[25px] h-2.5 w-2.5 rounded-full border-2 border-background',
+                    exp.current ? 'bg-primary' : 'bg-muted-foreground/50',
+                  )}
+                  aria-hidden="true"
+                />
+                <Card>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-[12.5px] font-semibold">{exp.role}</h3>
+                      <p className="text-[10.5px] font-medium text-primary">{exp.company}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      {exp.current && (
+                        <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[8.5px] font-medium text-emerald-600 dark:text-emerald-400">
+                          Current
+                        </span>
+                      )}
+                      <span className="font-mono text-[9px] text-muted-foreground">{exp.period}</span>
+                    </div>
                   </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    {exp.current && (
-                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[8.5px] font-medium text-emerald-600 dark:text-emerald-400">
-                        Current
-                      </span>
-                    )}
-                    <span className="font-mono text-[9px] text-muted-foreground">{exp.period}</span>
-                  </div>
-                </div>
-                <p className="mt-1 flex items-center gap-2 text-[9px] text-muted-foreground">
-                  <Briefcase className="h-3 w-3" />
-                  {exp.employmentType}
-                  <span aria-hidden="true">·</span>
-                  <MapPin className="h-3 w-3" />
-                  {exp.location}
-                </p>
-                <Bullets items={exp.description} className="mt-2.5" />
-                {exp.tech && exp.tech.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1 border-t border-border pt-2.5">
-                    {exp.tech.map((tech) => (
-                      <TechChip key={tech} name={tech} className="px-2 py-0.5 text-[8.5px]" />
-                    ))}
-                  </div>
-                )}
-              </Card>
-            </li>
-          ))}
-        </ol>
-      </PdfPage>
+                  <p className="mt-1 flex items-center gap-2 text-[9px] text-muted-foreground">
+                    <Briefcase className="h-3 w-3" />
+                    {exp.employmentType}
+                    <span aria-hidden="true">·</span>
+                    <MapPin className="h-3 w-3" />
+                    {exp.location}
+                  </p>
+                  <Bullets items={exp.description} className="mt-2.5" />
+                  {exp.tech && exp.tech.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1 border-t border-border pt-2.5">
+                      {exp.tech.map((tech) => (
+                        <TechChip key={tech} name={tech} className="px-2 py-0.5 text-[8.5px]" />
+                      ))}
+                    </div>
+                  )}
+                </Card>
+              </li>
+            ))}
+          </ol>
+        </PdfPage>
+      ))}
 
-      {/* 3–4 — Projects */}
+      {/* Projects */}
       {projectPages.map((projects, pageIndex) => (
-        <PdfPage key={pageIndex} number={3 + pageIndex}>
+        <PdfPage key={pageIndex} number={FIRST_PROJECT_PAGE + pageIndex}>
           <Heading
             eyebrow={pageIndex === 0 ? 'Projects' : 'Projects (continued)'}
             title={pageIndex === 0 ? 'Selected work' : 'More projects'}
@@ -303,8 +314,8 @@ export default function PortfolioPdfPage() {
         </PdfPage>
       ))}
 
-      {/* 5 — Skills, education & organization */}
-      <PdfPage number={3 + projectPages.length}>
+      {/* Skills, education & organization */}
+      <PdfPage number={FIRST_PROJECT_PAGE + projectPages.length}>
         <Heading eyebrow="Skills" title="Tools I work with" />
         <Card className="p-3.5">
           <div className="flex flex-wrap justify-center gap-1.5">
@@ -384,8 +395,8 @@ export default function PortfolioPdfPage() {
         </div>
       </PdfPage>
 
-      {/* 6 — Certifications & contact */}
-      <PdfPage number={4 + projectPages.length}>
+      {/* Certifications & contact */}
+      <PdfPage number={FIRST_PROJECT_PAGE + projectPages.length + 1}>
         <Heading eyebrow="Credentials" title="Licenses & certifications" />
         <div className="grid grid-cols-3 gap-3">
           {data.certifications.map((cert) => (

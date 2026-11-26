@@ -1,7 +1,7 @@
 # AGENT MEMORY — Riski Hidayat Portfolio
 
 > File ini WAJIB dibaca AI agent di awal sesi kerja, dan WAJIB diupdate di akhir sesi setelah fitur selesai+ditest.
-> Terakhir diupdate: 2026-11-26 oleh sesi: tambah proyek E-Mutu, Next.js 16.4.6 (fix security), PDF 7 halaman
+> Terakhir diupdate: 2026-11-26 oleh sesi: CV Software Engineer + Enigma Camp diperbarui
 
 ## 1. Ringkasan Project
 - Deskripsi singkat: website portofolio satu halaman milik Riski Hidayat (Fullstack Developer, backend-focused). Live di https://portofolio.rtech.studio.
@@ -51,7 +51,7 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak ada pekerjaan menggantung.
 
 ## 6. Known issues / hutang teknis
-- CV yang bisa diunduh = `public/Riski-Hidayat_Full-Stack-Developer_CV.pdf` (versi "Full Stack Developer", 2026-10-13). Di CV itu periode Enigma Camp tertulis Mar–Nov 2025, sedangkan di web Mar–Jul 2025 (atas permintaan user, sesuai sertifikat). Menunggu keputusan user. — prioritas: rendah
+- CV yang bisa diunduh = `public/Riski-Hidayat_Software-Engineer_CV.pdf` (versi "Software Engineer", 2026-11-26). Enigma Camp di web sudah = CV (Mar–Jul 2025, Gosling Batch #7). Perbedaan CV vs web yang BELUM disamakan (menunggu keputusan user): judul (CV "Software Engineer" vs web "Fullstack Developer"); magang Enigma (CV: Node.js + Java, QA rotation, SIT/UAT; web: Go + React/TS/Zustand); E-Mutu (CV: "worked on", 8+ roles, OAuth 2.0, deployment); tahun ACA (CV 2024 vs web 2025); English (CV Intermediate). — prioritas: sedang
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
 ## 7. Hal yang perlu diketahui agent berikutnya sebelum lanjut
