@@ -139,11 +139,12 @@ test('tech stack marquee shows every technology with a self-hosted icon that loa
   expect(broken).toEqual([]);
 });
 
-test('print layout has six A4 pages with nothing clipped, and the generated PDFs are served', async ({ page, request }) => {
+test('print layout has an A4 page per section with nothing clipped, and the generated PDFs are served', async ({ page, request }) => {
   await page.goto('/portfolio-pdf');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   const pages = page.locator('.pdf-page');
-  await expect(pages).toHaveCount(6);
+  // profile, experience, one page per three projects, skills, certifications
+  await expect(pages).toHaveCount(4 + 3);
   const overflow = await pages.evaluateAll((els) => els.map((el) => el.scrollHeight - el.clientHeight));
   expect(overflow.every((px) => px <= 1)).toBe(true);
   await page.goto('/');

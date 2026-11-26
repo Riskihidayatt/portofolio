@@ -3,6 +3,13 @@ import { PortfolioData } from '../types';
 // Profile
 import profilePhoto from './assets/profile/riski-hidayat.webp';
 
+// E-Mutu images
+import emutuThumb from './assets/emutu/1-thumb.webp';
+import emutu1 from './assets/emutu/1.webp';
+import emutu2 from './assets/emutu/2.webp';
+import emutu3 from './assets/emutu/3.webp';
+import emutu4 from './assets/emutu/4.webp';
+
 // PEMIRA e-voting images
 import evotingThumb from './assets/evoting/1-thumb.webp';
 import evoting1 from './assets/evoting/1.webp';
@@ -69,7 +76,7 @@ export const portfolioData: PortfolioData = {
   },
   stats: [
     { value: '2+', label: 'Years building web apps' },
-    { value: '6', label: 'Shipped projects' },
+    { value: '7', label: 'Shipped projects' },
     { value: '~20', label: 'Polytechnics using AITeC VI' },
     { value: '3.89', label: 'GPA, D3 Informatics Mgmt.' },
   ],
@@ -150,6 +157,22 @@ export const portfolioData: PortfolioData = {
     },
   ],
   projects: [
+    {
+      id: 'prj-emutu',
+      title: 'E-Mutu',
+      category: 'Internal Quality Assurance System',
+      role: 'Fullstack Developer',
+      summary: 'Quality assurance platform for Politeknik Negeri Lampung: internal audits (AMI), IKU tracking and accreditation reports.',
+      tech_stack: ['Laravel', 'PHP', 'React', 'TypeScript', 'Inertia.js', 'MySQL', 'Tailwind CSS'],
+      image: emutuThumb,
+      images: [emutu1, emutu2, emutu3, emutu4],
+      description: [
+        "Built the internal quality assurance system (SPMI) that runs Politeknik Negeri Lampung's Internal Quality Audit (AMI) cycle: quality standards and periods, IKU and non-IKU targets, evaluations, audit schedules and monitoring.",
+        'Implemented a multi-level submission workflow (lecturers → study programs → departments → quality assurance office) with sent, returned and finalized states, workflow history, and dashboards showing progress for every study program and department.',
+        'Generates LAM-PTIP and IAPS 1.0 accreditation reports straight from application data into the official Excel template, keeping its formats, dropdowns and formulas intact, plus print-ready PDFs.',
+        'Role-based access for superadmin, quality office admins, lecturers, study programs, departments, support units, auditors and leadership; email/password login with reCAPTCHA and Google sign-in limited to the campus domain.',
+      ],
+    },
     {
       id: 'prj-pemira',
       title: 'PEMIRA Polinela',

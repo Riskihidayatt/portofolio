@@ -37,8 +37,11 @@ const SITE_URL = 'portofolio.rtech.studio';
 const focusIcons = [Server, MonitorSmartphone, Rocket];
 const { profile } = data;
 
-// Projects are laid out three per page.
-const projectPages = [data.projects.slice(0, 3), data.projects.slice(3, 6)];
+// Projects are laid out three per page, adding pages as the list grows.
+const PROJECTS_PER_PAGE = 3;
+const projectPages = Array.from({ length: Math.ceil(data.projects.length / PROJECTS_PER_PAGE) }, (_, i) =>
+  data.projects.slice(i * PROJECTS_PER_PAGE, (i + 1) * PROJECTS_PER_PAGE),
+);
 const TOTAL_PAGES = 4 + projectPages.length;
 
 function PdfPage({ number, children, className }: { number: number; children: React.ReactNode; className?: string }) {

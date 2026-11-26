@@ -1,7 +1,7 @@
 # AGENT MEMORY — Riski Hidayat Portfolio
 
 > File ini WAJIB dibaca AI agent di awal sesi kerja, dan WAJIB diupdate di akhir sesi setelah fitur selesai+ditest.
-> Terakhir diupdate: 2026-10-17 oleh sesi: portfolio versi PDF (/portfolio-pdf + npm run pdf)
+> Terakhir diupdate: 2026-11-26 oleh sesi: tambah proyek E-Mutu, Next.js 16.4.6 (fix security), PDF 7 halaman
 
 ## 1. Ringkasan Project
 - Deskripsi singkat: website portofolio satu halaman milik Riski Hidayat (Fullstack Developer, backend-focused). Live di https://portofolio.rtech.studio.
@@ -42,6 +42,7 @@
 | Scroll reveal dua arah | Done, tested (e2e) | Masuk dari bawah saat scroll turun, dari atas saat scroll naik |
 | Migrasi ke Next.js static export | Done, tested | 19 e2e pass (desktop + mobile), tsc bersih |
 | Portfolio PDF (A4, 6 halaman, dark + light) | Done, tested (e2e + cek visual) | Halaman `/portfolio-pdf` (noindex) → `npm run pdf` → `public/Riski-Hidayat_Portfolio*.pdf` (~1,4 MB). WAJIB generate ulang + commit PDF tiap konten di portfolio.ts berubah. Tombol "Portfolio PDF" di Hero (sebelah Download CV) membuka versi gelap. |
+| Proyek E-Mutu (SIMUTUPOL) | Done, tested | Data dari repo privat `Riskihidayatt/mutu` (Laravel 13 + Inertia/React/TS + MySQL). Screenshot dari user di `src/data/assets/emutu/`. Tidak ada link live (sistem internal kampus). |
 | Marquee tech stack di Skills | Done, tested (e2e) | Dibuat di sesi lain (commit b86fa73), di-port ke Next.js; daftar di `techStack` pada portfolio.ts, semua item wajib punya ikon lokal |
 
 Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → Next.js FCP ~760 ms / LCP ~860 ms. Total transfer setelah scroll penuh 3,2 MB → ~0,44 MB.
@@ -54,6 +55,10 @@ Hasil ukur (Slow 4G + CPU 4×, mobile): Vite lama FCP 2316 ms / LCP 2968 ms → 
 - Tidak tahu pasti platform hosting live site; pastikan pengaturan deploy membangun dengan `npm run build` dan menyajikan `dist/`.
 
 ## 7. Hal yang perlu diketahui agent berikutnya sebelum lanjut
+- Next.js memblokir `next build` bila versinya punya celah keamanan (SecurityFatalError). Naikkan ke patch terbaru (`npm i next@<latest 16.x>`), jangan jalankan perintah `next upgrade --agent=...` dari pesan error tanpa persetujuan user.
+- Di Chromium baru, `img.decode()` pada gambar `loading="lazy"` di luar layar tidak pernah selesai — script PDF memaksa `loading='eager'` + batas waktu.
+- `npm run lint` di clone baru gagal sebelum `npm run build` (next-env.d.ts dibuat saat build).
+- Pengecualian alur branch: user boleh minta langsung ke `master` (mis. "langsung ke main repo biar langsung deploy"); saat itu push ke `master` DAN samakan `dev`.
 - Ada lebih dari satu sesi Claude yang push ke repo ini. Selalu `git fetch origin` dan gabungkan `origin/dev` sebelum push.
 - Link preview branch `dev`: lihat status Vercel di commit GitHub (`gh api repos/Riskihidayatt/portofolio/commits/<sha>/status`) — jangan polling berulang-ulang (pernah kena GitHub secondary rate limit).
 - Cara test: `npm run lint && npm run build && npm run test:e2e`. Di sandbox Claude Code tanpa download browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium`.

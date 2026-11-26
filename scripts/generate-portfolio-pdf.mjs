@@ -46,7 +46,9 @@ try {
     const broken = await page.$$eval('.pdf-document img', (imgs) =>
       Promise.all(
         imgs.map(async (img) => {
-          await img.decode().catch(() => undefined);
+          // Lazy images outside the viewport never load in headless Chromium; force them and cap the wait.
+          img.loading = 'eager';
+          await Promise.race([img.decode().catch(() => undefined), new Promise((r) => setTimeout(r, 15000))]);
           return img.naturalWidth > 0 ? null : img.getAttribute('src');
         }),
       ).then((r) => r.filter(Boolean)),
