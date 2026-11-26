@@ -164,6 +164,7 @@ export const portfolioData: PortfolioData = {
       role: 'Fullstack Developer',
       summary: 'Quality assurance platform for Politeknik Negeri Lampung: internal audits (AMI), IKU tracking and accreditation reports.',
       tech_stack: ['Laravel', 'PHP', 'React', 'TypeScript', 'Inertia.js', 'MySQL', 'Tailwind CSS'],
+      link: 'https://mutu.polinela.ac.id/',
       image: emutuThumb,
       images: [emutu1, emutu2, emutu3, emutu4],
       description: [

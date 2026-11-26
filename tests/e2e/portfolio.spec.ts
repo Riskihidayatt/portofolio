@@ -63,9 +63,10 @@ test('project case study opens, pages through images and closes with Escape', as
 test('live site links point to the deployed projects', async ({ page }) => {
   await page.goto('/');
   const links = page.locator('#projects a', { hasText: 'Live site' });
-  await expect(links).toHaveCount(2);
-  await expect(links.nth(0)).toHaveAttribute('href', 'https://aitec-lampung.polinela.ac.id/');
-  await expect(links.nth(1)).toHaveAttribute('href', 'https://kuliah.polinela.ac.id/');
+  await expect(links).toHaveCount(3);
+  await expect(links.nth(0)).toHaveAttribute('href', 'https://mutu.polinela.ac.id/');
+  await expect(links.nth(1)).toHaveAttribute('href', 'https://aitec-lampung.polinela.ac.id/');
+  await expect(links.nth(2)).toHaveAttribute('href', 'https://kuliah.polinela.ac.id/');
 });
 
 test('certificate image opens in a dialog', async ({ page }) => {
